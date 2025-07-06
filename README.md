@@ -44,13 +44,17 @@ Onde:
 - **ESLint** - Linter para qualidade de código
 - **Webpack** - Bundler de módulos (configurado pelo CRA)
 
+### Deploy
+- **Vercel** - Plataforma de deploy e hospedagem
+- **GitHub Actions** - CI/CD automatizado
+
 ## 🚀 Como Executar o Projeto
 
 ### Pré-requisitos
 - Node.js (versão 14 ou superior)
 - Yarn (recomendado) ou npm
 
-### Instalação
+### Instalação Local
 
 1. **Clone o repositório**
    ```bash
@@ -88,12 +92,62 @@ yarn test
 yarn eject
 ```
 
+## 🌐 Deploy Automático
+
+### Deploy via Vercel
+
+A aplicação está configurada para deploy automático no Vercel. Cada push para a branch `main` ou `master` gera um novo deploy.
+
+#### Configuração Manual (Primeira vez)
+
+1. **Instale o Vercel CLI**
+   ```bash
+   npm i -g vercel
+   ```
+
+2. **Faça login no Vercel**
+   ```bash
+   vercel login
+   ```
+
+3. **Deploy da aplicação**
+   ```bash
+   vercel
+   ```
+
+4. **Para produção**
+   ```bash
+   vercel --prod
+   ```
+
+#### Deploy Automático via GitHub Actions
+
+O projeto inclui um workflow do GitHub Actions que:
+
+- ✅ Executa testes automaticamente
+- ✅ Faz build da aplicação
+- ✅ Deploy automático no Vercel
+- ✅ Trigger em push para `main`/`master`
+
+#### Variáveis de Ambiente Necessárias
+
+Configure estas secrets no GitHub:
+
+- `VERCEL_TOKEN` - Token de acesso do Vercel
+- `VERCEL_ORG_ID` - ID da organização no Vercel
+- `VERCEL_PROJECT_ID` - ID do projeto no Vercel
+
+### URLs de Deploy
+
+- **Produção**: [https://calculadora-cartao.vercel.app](https://calculadora-cartao.vercel.app)
+- **Preview**: Gerada automaticamente para cada PR
+
 ## 📱 Como Usar
 
 1. **Preencha os dados:**
-   - **Valor Atual da Fatura (VAF)**: Digite quanto já gastou no cartão
-   - **Valor Máximo da Fatura (VMF)**: Digite o limite do seu cartão
-   - **Data de Fechamento (DF)**: Selecione quando fecha a fatura
+   - **Valor Atual da Fatura**: Digite quanto já gastou no cartão
+   - **Valor Máximo da Fatura**: Digite o limite do seu cartão
+   - **Data de Fechamento**: Selecione quando fecha a fatura
 
 2. **Visualize os resultados:**
    - O **Valor Diário Máximo** será calculado automaticamente
@@ -134,8 +188,13 @@ calculadora-cartao/
 │   ├── App.css            # Estilos da aplicação
 │   ├── index.js           # Ponto de entrada
 │   └── index.css          # Estilos globais
+├── .github/
+│   └── workflows/
+│       └── deploy.yml     # Pipeline de deploy
 ├── package.json           # Dependências e scripts
 ├── yarn.lock             # Versões fixas das dependências
+├── vercel.json           # Configuração do Vercel
+├── .vercelignore         # Arquivos ignorados no deploy
 └── README.md             # Este arquivo
 ```
 
