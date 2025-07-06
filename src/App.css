@@ -1,38 +1,244 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+body {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.App-link {
-  color: #61dafb;
+.card {
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
 }
 
-@keyframes App-logo-spin {
+.card-header {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
+  border-bottom: none;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.input-group-text {
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+}
+
+.input-group .form-control {
+  border-left: none;
+  border-radius: 0 8px 8px 0;
+}
+
+.display-4 {
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.alert {
+  border-radius: 10px;
+  border: none;
+}
+
+.alert-info {
+  background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+  color: #0c5460;
+}
+
+.alert-success {
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  color: #155724;
+  border: none;
+  font-size: 0.875rem;
+}
+
+.alert-sm {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.bi {
+  font-size: 1.2em;
+}
+
+.display-1 {
+  font-size: 4rem;
+  color: #6c757d;
+}
+
+/* Botão dentro do alert */
+.btn-outline-success {
+  border-width: 1px;
+  transition: all 0.3s ease;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.btn-outline-success:hover {
+  background-color: #198754;
+  border-color: #198754;
+  transform: scale(1.05);
+}
+
+.btn-outline-success:focus {
+  box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+}
+
+/* Botão de limpar dados (antigo) */
+.btn-outline-light {
+  border-width: 2px;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: #fff;
+  transform: scale(1.05);
+}
+
+/* Animação para os resultados */
+@keyframes fadeInUp {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(20px);
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card.bg-light {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* Animação para o indicador de dados salvos */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.alert-success {
+  animation: slideInRight 0.3s ease-out;
+}
+
+/* Responsividade melhorada */
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .display-4 {
+    font-size: 2rem;
+  }
+
+  .display-1 {
+    font-size: 3rem;
+  }
+
+  .card-header h2 {
+    font-size: 1.5rem;
+  }
+
+  /* Melhor espaçamento em telas pequenas */
+  .col-md-12 {
+    margin-bottom: 1.5rem;
+  }
+
+  .card.bg-light {
+    margin-top: 1rem;
+  }
+
+  /* Ajuste do alert em telas pequenas */
+  .alert-success {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .alert-success .btn {
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+
+  .display-4 {
+    font-size: 1.75rem;
+  }
+
+  .display-1 {
+    font-size: 2.5rem;
+  }
+
+  .card-header h2 {
+    font-size: 1.25rem;
+  }
+
+  /* Ajuste dos resultados em telas muito pequenas */
+  .row .col-6 {
+    margin-bottom: 1rem;
+  }
+
+  /* Ajuste do alert em telas muito pequenas */
+  .alert-success {
+    text-align: center;
+  }
+
+  .alert-success .btn {
+    align-self: center;
+  }
+}
+
+/* Efeito hover nos cards */
+.card:hover {
+  transform: translateY(-2px);
+  transition: transform 0.3s ease;
+}
+
+/* Tooltip personalizado */
+[title] {
+  position: relative;
+  cursor: help;
+}
+
+/* Efeito de loading para dados salvos */
+.alert-success i {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
   }
 }
