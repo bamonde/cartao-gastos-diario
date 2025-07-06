@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { NumericFormat } from 'react-number-format';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -49,13 +50,23 @@ function App() {
     }
   }, []);
 
+  // Função para converter valor formatado para número
+  const converterParaNumero = (valorFormatado) => {
+    if (!valorFormatado) return 0;
+    // Remove todos os caracteres não numéricos exceto vírgula e ponto
+    const valorLimpo = valorFormatado.replace(/[^\d,.-]/g, '');
+    // Converte vírgula para ponto para parseFloat
+    const valorNumerico = valorLimpo.replace(',', '.');
+    return parseFloat(valorNumerico) || 0;
+  };
+
   const calcularValorDiario = useCallback(() => {
     if (!valorAtualFatura || !valorMaximoFatura || !dataFechamento) {
       return;
     }
 
-    const vaf = parseFloat(valorAtualFatura);
-    const vmf = parseFloat(valorMaximoFatura);
+    const vaf = converterParaNumero(valorAtualFatura);
+    const vmf = converterParaNumero(valorMaximoFatura);
     const df = new Date(dataFechamento);
     const dataAtual = new Date();
 
@@ -121,38 +132,40 @@ function App() {
                     <label htmlFor="valorAtualFatura" className="form-label fw-bold">
                       Valor Atual da Fatura
                     </label>
-                    <div className="input-group">
-                      <span className="input-group-text">R$</span>
-                      <input
-                        type="number"
-                        className="form-control"
-                        id="valorAtualFatura"
-                        value={valorAtualFatura}
-                        onChange={(e) => setValorAtualFatura(e.target.value)}
-                        placeholder="0,00"
-                        step="0.01"
-                        min="0"
-                      />
-                    </div>
+                    <NumericFormat
+                      value={valorAtualFatura}
+                      onValueChange={(values) => {
+                        setValorAtualFatura(values.value);
+                      }}
+                      thousandSeparator="."
+                      decimalSeparator=","
+                      decimalScale={2}
+                      fixedDecimalScale
+                      placeholder="0,00"
+                      className="form-control"
+                      id="valorAtualFatura"
+                      data-numeric="true"
+                    />
                   </div>
 
                   <div className="mb-3">
                     <label htmlFor="valorMaximoFatura" className="form-label fw-bold">
                       Valor Máximo da Fatura
                     </label>
-                    <div className="input-group">
-                      <span className="input-group-text">R$</span>
-                      <input
-                        type="number"
-                        className="form-control"
-                        id="valorMaximoFatura"
-                        value={valorMaximoFatura}
-                        onChange={(e) => setValorMaximoFatura(e.target.value)}
-                        placeholder="0,00"
-                        step="0.01"
-                        min="0"
-                      />
-                    </div>
+                    <NumericFormat
+                      value={valorMaximoFatura}
+                      onValueChange={(values) => {
+                        setValorMaximoFatura(values.value);
+                      }}
+                      thousandSeparator="."
+                      decimalSeparator=","
+                      decimalScale={2}
+                      fixedDecimalScale
+                      placeholder="0,00"
+                      className="form-control"
+                      id="valorMaximoFatura"
+                      data-numeric="true"
+                    />
                   </div>
 
                   <div className="mb-3">
@@ -165,6 +178,7 @@ function App() {
                       id="dataFechamento"
                       value={dataFechamento}
                       onChange={(e) => setDataFechamento(e.target.value)}
+                      data-date="true"
                     />
                   </div>
 

@@ -30,16 +30,40 @@ body {
   box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
 
-.input-group-text {
-  background-color: #f8f9fa;
-  border: 1px solid #ced4da;
-  border-right: none;
-  border-radius: 8px 0 0 8px;
+/* Estilos específicos para campos numéricos */
+.form-control[data-numeric] {
+  text-align: right;
+  padding-right: 12px;
 }
 
-.input-group .form-control {
-  border-left: none;
-  border-radius: 0 8px 8px 0;
+.form-control[data-numeric]:focus {
+  background-color: #fff;
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Placeholder para campos monetários */
+.form-control[data-numeric]::placeholder {
+  color: #6c757d;
+  font-style: italic;
+  text-align: right;
+}
+
+/* Estilos específicos para campo de data */
+.form-control[data-date] {
+  text-align: right;
+  padding-right: 20px;
+}
+
+.form-control[data-date]:focus {
+  background-color: #fff;
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  position: relative;
+  left: 8px;
 }
 
 .display-4 {
@@ -176,6 +200,16 @@ body {
   .alert-success .btn {
     align-self: flex-end;
   }
+
+  /* Ajuste dos campos numéricos em telas pequenas */
+  .form-control[data-numeric] {
+    font-size: 0.9rem;
+  }
+
+  /* Ajuste do campo de data em telas pequenas */
+  .form-control[data-date] {
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 576px) {
@@ -211,6 +245,16 @@ body {
 
   .alert-success .btn {
     align-self: center;
+  }
+
+  /* Ajuste dos campos numéricos em telas muito pequenas */
+  .form-control[data-numeric] {
+    font-size: 0.85rem;
+  }
+
+  /* Ajuste do campo de data em telas muito pequenas */
+  .form-control[data-date] {
+    font-size: 0.85rem;
   }
 }
 
