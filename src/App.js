@@ -122,12 +122,12 @@ function App() {
             <div className="card-header bg-primary text-white">
               <h2 className="text-center mb-0">
                 <i className="bi bi-credit-card me-2"></i>
-                Calculadora de Gasto Diário<br />Cartão de Crédito
+                Calculadora de Gasto Diário
               </h2>
             </div>
             <div className="card-body">
               <div className="row">
-                <div className="col-md-12">
+                <div className="col-md-12 mb-1">
                   <div className="mb-3">
                     <label htmlFor="valorAtualFatura" className="form-label fw-bold">
                       Valor Atual da Fatura
@@ -184,7 +184,7 @@ function App() {
 
                   {/* Indicador de dados salvos com botão de limpar */}
                   {(valorAtualFatura || valorMaximoFatura || dataFechamento) && (
-                    <div className="alert alert-success alert-sm d-flex justify-content-between align-items-center">
+                    <div className="alert alert-success alert-sm d-flex justify-content-between align-items-center mb-1 flex-row">
                       <div>
                         <i className="bi bi-check-circle me-2"></i>
                         Dados salvos automaticamente
@@ -201,14 +201,14 @@ function App() {
                   )}
                 </div>
 
-                <div className="col-md-12">
-                  <div className="card bg-light">
+                <div className="col-md-12 mb-1">
+                  <div className="card bg-light mt-1">
                     <div className="card-body">
-                      <h5 className="card-title text-center mb-4">Resultados</h5>
+                      <h5 className="card-title text-center mb-3">Resultados</h5>
 
                       {valorDiarioMaximo !== null && (
                         <>
-                          <div className="text-center mb-4">
+                          <div className="text-center mb-3">
                             <h3 className="text-success fw-bold">
                               Valor Diário Máximo
                             </h3>
