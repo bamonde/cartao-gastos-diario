@@ -286,3 +286,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     opacity: 1;
   }
 }
+
+.text-orange {
+  color: #ff8800 !important;
+}

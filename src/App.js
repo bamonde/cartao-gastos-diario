@@ -67,15 +67,23 @@ function App() {
 
     const vaf = converterParaNumero(valorAtualFatura);
     const vmf = converterParaNumero(valorMaximoFatura);
-    const df = new Date(dataFechamento);
-    const dataAtual = new Date();
+    // Ajusta a data de fechamento para meia-noite no fuso local do usuário
+    let df = null;
+    if (dataFechamento) {
+      const [ano, mes, dia] = dataFechamento.split('-');
+      df = new Date(Number(ano), Number(mes) - 1, Number(dia), 23, 59, 59, 999);
+    }
+    // Data atual no fuso local, zerando horas para evitar problemas de horário
+    const agora = new Date();
+    const dataAtual = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate(), 0, 0, 0, 0);
 
     // Calcular valor disponível (vd)
     const vd = vmf - vaf;
 
     // Calcular dias restantes (dr)
     const diffTime = df.getTime() - dataAtual.getTime();
-    const dr = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    let dr = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) - 1;
+    if (dr < 0) dr = 0;
 
     // Calcular valor diário máximo (vdm)
     const vdm = dr > 0 ? vd / dr : 0;
@@ -115,7 +123,7 @@ function App() {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-4">
       <div className="row justify-content-center">
         <div className="col-md-8">
           <div className="card shadow">
@@ -181,24 +189,6 @@ function App() {
                       data-date="true"
                     />
                   </div>
-
-                  {/* Indicador de dados salvos com botão de limpar */}
-                  {(valorAtualFatura || valorMaximoFatura || dataFechamento) && (
-                    <div className="alert alert-success alert-sm d-flex justify-content-between align-items-center mb-1 flex-row">
-                      <div>
-                        <i className="bi bi-check-circle me-2"></i>
-                        Dados salvos automaticamente
-                      </div>
-                      <button
-                        className="btn btn-outline-success btn-sm"
-                        onClick={limparDados}
-                        title="Limpar dados salvos"
-                      >
-                        <i className="bi bi-trash me-1"></i>
-                        Limpar
-                      </button>
-                    </div>
-                  )}
                 </div>
 
                 <div className="col-md-12 mb-1">
@@ -209,10 +199,10 @@ function App() {
                       {valorDiarioMaximo !== null && (
                         <>
                           <div className="text-center mb-3">
-                            <h3 className="text-success fw-bold">
+                            <h3 className={`fw-bold ${valorDiarioMaximo < 0 ? 'text-danger' : valorDiarioMaximo <= 100 && valorDiarioMaximo > 0 ? 'text-orange' : 'text-success'}`}>
                               Valor Diário Máximo
                             </h3>
-                            <div className="display-4 text-success fw-bold">
+                            <div className={`display-4 fw-bold ${valorDiarioMaximo < 0 ? 'text-danger' : valorDiarioMaximo <= 100 && valorDiarioMaximo > 0 ? 'text-orange' : 'text-success'}`}>
                               {formatarMoeda(valorDiarioMaximo)}
                             </div>
                           </div>
@@ -246,6 +236,24 @@ function App() {
                       )}
                     </div>
                   </div>
+                </div>
+                <div className="col-md-12">
+                  {(valorAtualFatura || valorMaximoFatura || dataFechamento) && (
+                    <div className="alert alert-success alert-sm d-flex justify-content-between align-items-center mt-3 flex-row">
+                      <div>
+                        <i className="bi bi-check-circle me-2"></i>
+                        Dados salvos automaticamente
+                      </div>
+                      <button
+                        className="btn btn-outline-success btn-sm"
+                        onClick={limparDados}
+                        title="Limpar dados salvos"
+                      >
+                        <i className="bi bi-trash me-1"></i>
+                        Limpar
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
